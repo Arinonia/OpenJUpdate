@@ -1,6 +1,9 @@
 package fr.arinonia.openjupdate.service;
 
 import fr.arinonia.openjupdate.models.SetupCheck;
+import fr.arinonia.openjupdate.repository.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +17,24 @@ import java.util.List;
 @Service
 public class SetupService {
 
+    private final UserRepository userRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Value("${app.storage.directory}")
     private String storageDirectoryPath;
+
+
+    public SetupService(final UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public List<SetupCheck> performSetupChecks() {
         final List<SetupCheck> checks = new ArrayList<>();
         final boolean dbConnection = checkDatabaseConnection();
         final boolean filePermissions = checkFilePermissions(this.storageDirectoryPath);
-        final boolean externalAPI = checkExternalAPIAccess();
         checks.add(new SetupCheck("Database Connection", dbConnection));
         checks.add(new SetupCheck("File Permissions", filePermissions));
-        checks.add(new SetupCheck("External API Access", externalAPI));
         return checks;
     }
 
@@ -49,15 +59,22 @@ public class SetupService {
         }
     }
 
+    //I guess it's useless because you should get an error if you run the project without a database
     private boolean checkDatabaseConnection() {
-        return true;
-    }
-
-    private boolean checkExternalAPIAccess() {
-        return false;
+        try {
+            this.entityManager.createNativeQuery("SELECT 1").getSingleResult();
+            return true;
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean isCmsSetUp() {
-        return false;
+        try {
+            return this.userRepository.count() > 0;
+        } catch (final Exception ignored) {
+            return false;
+        }
     }
 }

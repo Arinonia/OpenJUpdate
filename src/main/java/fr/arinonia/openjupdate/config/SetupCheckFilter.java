@@ -26,11 +26,18 @@ public class SetupCheckFilter extends GenericFilterBean {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        if (!this.setupService.isCmsSetUp() && !request.getRequestURI().equals("/setup") && !request.getRequestURI().startsWith("/css/") && !request.getRequestURI().startsWith("/js/") && !request.getRequestURI().startsWith("/images/")) {
+        final boolean isSetupAdminPath = request.getRequestURI().endsWith("/setup/admin");
+
+        if (!this.setupService.isCmsSetUp() && !isSetupAdminPath &&
+                !request.getRequestURI().equals("/setup") &&
+                !request.getRequestURI().startsWith("/css/") &&
+                !request.getRequestURI().startsWith("/js/") &&
+                !request.getRequestURI().startsWith("/images/")) {
             response.sendRedirect("/setup");
             return;
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
+
 }
