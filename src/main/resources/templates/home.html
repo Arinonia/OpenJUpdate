@@ -2,109 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Job Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body>
+<div class="d-flex flex-column flex-md-row min-vh-100">
+    <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sync-alt"></i> Jobs</a></li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-users" aria-expanded="false">
+                        <i class="fas fa-users me-2"></i> Users
+                    </a>
+                    <div id="submenu-users" class="collapse" data-bs-parent=".sidebar">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="nav-link">All Users</a></li>
+                            <li><a href="#" class="nav-link">Add New</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<div class="container my-5">
-    <div class="row">
-        <div class="col-12">
-            <h2 class="mb-4">Job Dashboard</h2>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Add a New Job</h5>
-                    <form id="jobForm">
-                        <div class="mb-3">
-                            <label for="jobTitle" class="form-label">Job Title</label>
-                            <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="jobDescription" class="form-label">Job Description</label>
-                            <textarea class="form-control" id="jobDescription" name="jobDescription" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Create Job</button>
-                    </form>
+    <div class="flex-grow-1">
+        <main role="main" class="col px-md-4 dashboard-content">
+            <h1>Welcome to OpenJUpdate Dashboard</h1>
+            <p>A solution to manage downloader easily.</p>
+
+
+            <div class="info-section mt-4">
+                <div th:each="notification : ${notifications}">
+                    <div th:class="'alert alert-' + ${notification.type}" role="alert">
+                        <span th:text="${notification.message}"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <h2 class="mb-4">Available Jobs</h2>
-    <div class="row" id="jobsContainer">
-        <!-- Job Card 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
+
+            <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">Software Developer</h5>
-                    <p class="card-text">Develop high-quality software design and architecture. Identify, prioritize, and execute tasks in the software development life cycle.</p>
-                    <a href="#" class="btn btn-primary">View Details</a>
+                    <h5 class="card-title">Launcher Jobs</h5>
+                    <p class="card-text">Launcher jobs, here you will found assets natives libraries game resource pack</p>
+                    <a href="#" class="btn btn-primary">Go manage</a>
                 </div>
             </div>
-        </div>
-        <!-- Job Card 2 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Web Designer</h5>
-                    <p class="card-text">Create visually appealing sites that feature user-friendly design and clear navigation.</p>
-                    <a href="#" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Job Card 3 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Data Analyst</h5>
-                    <p class="card-text">Interpret data, analyze results using statistical techniques and provide ongoing reports.</p>
-                    <a href="#" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Job Card 4 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Project Manager</h5>
-                    <p class="card-text">Lead project planning sessions. Coordinate staff and internal resources. Manage project progress and adapt work as required.</p>
-                    <a href="#" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Job Card 5 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Network Administrator</h5>
-                    <p class="card-text">Maintain computing environments by identifying network requirements, installing upgrades, and monitoring network performance.</p>
-                    <a href="#" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Job Card 6 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Digital Marketing Specialist</h5>
-                    <p class="card-text">Plan, execute, and measure experiments and conversion tests. Collaborate with internal teams to create landing pages and optimize the user experience.</p>
-                    <a href="#" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Job Card 7 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Cybersecurity Expert</h5>
-                    <p class="card-text">Protect systems, networks, and programs from digital attacks. Implement security measures to monitor and protect sensitive data and systems from infiltration and cyber-attacks.</p>
-                    <a href="#" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
+        </main>
+        <footer>
+            <p>&copy; 2024 OpenJUpdate. All rights reserved. Special Thanks to</p>
+            <a href="https://athena-heberg.fr/" target="_blank" rel="noopener noreferrer">
+                <img src="https://cdn.discordapp.com/attachments/618813107921223681/1226572265441853612/ATHENA.png?ex=66254170&is=6612cc70&hm=d456815e83a7127bbe3bc6ee86afe8b4d22b0406ec2992ead42c4dd7b16cb4a8&"
+                     alt="Athena-Heberg-icon" style="height: 40px;">
+                Athena-Heberg
+            </a>❤️
+            <p>Made by
+                <a href="https://github.com/Arinonia" target="_blank" rel="noopener noreferrer">Arinonia</a>
+            </p>
+        </footer>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 </html>
