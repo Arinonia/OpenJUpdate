@@ -12,9 +12,6 @@ public class Rank {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private boolean canRead = true;
-    private boolean canChangeMaintenance = true;
-    private boolean canChangeJson = true;
     @OneToMany(mappedBy = "rank")
     private Set<RankJobPermission> rankJobPermissions;
 
@@ -37,30 +34,6 @@ public class Rank {
 
     public void setName(final String name) {
         this.name = name;
-    }
-
-    public boolean isCanRead() {
-        return this.canRead;
-    }
-
-    public void setCanRead(final boolean canRead) {
-        this.canRead = canRead;
-    }
-
-    public boolean isCanChangeMaintenance() {
-        return this.canChangeMaintenance;
-    }
-
-    public void setCanChangeMaintenance(final boolean canChangeMaintenance) {
-        this.canChangeMaintenance = canChangeMaintenance;
-    }
-
-    public boolean isCanChangeJson() {
-        return this.canChangeJson;
-    }
-
-    public void setCanChangeJson(final boolean canChangeJson) {
-        this.canChangeJson = canChangeJson;
     }
 
     public Set<User> getUsers() {
