@@ -12,9 +12,9 @@ public class Rank {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private boolean canRead;
-    private boolean canChangeMaintenance;
-    private boolean canChangeJson;
+    private boolean canRead = true;
+    private boolean canChangeMaintenance = true;
+    private boolean canChangeJson = true;
     @OneToMany(mappedBy = "rank")
     private Set<RankJobPermission> rankJobPermissions;
 

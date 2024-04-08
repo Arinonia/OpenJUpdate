@@ -44,6 +44,7 @@ public class SetupController {
                                 Model model, RedirectAttributes redirectAttributes) {
         final Response response = this.userService.registerUser(username, password, confirmPassword);
         if (response.isSuccess()) {
+            //redirectAttributes.addAttribute()
             return "redirect:/login";
         } else {
             model.addAttribute("errorMessage", response.getErrorMessage());
