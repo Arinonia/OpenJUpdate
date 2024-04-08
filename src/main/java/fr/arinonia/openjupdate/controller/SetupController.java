@@ -41,16 +41,14 @@ public class SetupController {
     public String registerAdmin(@RequestParam("username") String username,
                                 @RequestParam("password") String password,
                                 @RequestParam("confirmPassword") String confirmPassword,
-                                Model model) { // Use Model instead of ModelAndView
+                                Model model, RedirectAttributes redirectAttributes) {
         final Response response = this.userService.registerUser(username, password, confirmPassword);
-
         if (response.isSuccess()) {
-            model.addAttribute("successMessage", "Admin account has been successfully created. You will be redirect soon");
+            return "redirect:/login";
         } else {
             model.addAttribute("errorMessage", response.getErrorMessage());
+            return setupPage(model);
         }
-
-        return setupPage(model);
     }
 
 }

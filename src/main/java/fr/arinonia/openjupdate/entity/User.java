@@ -10,6 +10,9 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    @ManyToOne
+    @JoinColumn(name = "rank_id")
+    private Rank rank;
 
     public void setId(final Long id) {
         this.id = id;
@@ -32,5 +35,13 @@ public class User {
 
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public Rank getRank() {
+        return this.rank;
+    }
+
+    public void setRank(final Rank rank) {
+        this.rank = rank;
     }
 }

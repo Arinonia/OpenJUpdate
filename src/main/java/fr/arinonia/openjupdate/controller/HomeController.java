@@ -15,9 +15,9 @@ public class HomeController {
     @GetMapping("/home")
     public String getHomePage(Model model) {
         final List<Notification> notifications = Arrays.asList(
-                new Notification("This is a general information alert - check it out! ✔️", Notification.NotificationType.INFO),
+                new Notification("This is a general information send from the Java part! ✔️", Notification.NotificationType.INFO),
                 new Notification("Success! Your operation was completed successfully. ✅", Notification.NotificationType.SUCCESS),
-                new Notification("What did you just Try !? 🖕", Notification.NotificationType.WARNING),
+                new Notification("Warning ! Example", Notification.NotificationType.WARNING),
                 new Notification("Ahem... I'm actually broken 😭", Notification.NotificationType.DANGER)
         );
 
