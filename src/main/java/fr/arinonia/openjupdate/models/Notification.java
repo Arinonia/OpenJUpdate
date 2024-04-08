@@ -34,7 +34,7 @@ public class Notification {
 
         private final String value;
 
-        NotificationType(String value) {
+        NotificationType(final String value) {
             this.value = value;
         }
 

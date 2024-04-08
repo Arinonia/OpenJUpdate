@@ -41,3 +41,5 @@ out/
 .gradle/
 ###App folders###
 storage/
+
+application.properties
