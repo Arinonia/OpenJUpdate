@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 public class StorageService {
 
     private Path storageDirectory;
+    private Path jobsDirectory;
+
 
     @Value("${app.storage.directory}")
     private String storageDir;
@@ -26,5 +28,12 @@ public class StorageService {
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize storage directory", e);
         }
+    }
+
+    public Path createJobDirectory(final String jobName) throws IOException {
+        final String normalizedJobName = jobName.replaceAll("[^a-zA-Z0-9.-]", "_");
+        final Path jobDirectory = this.jobsDirectory.resolve(normalizedJobName);
+        Files.createDirectories(jobDirectory);
+        return jobDirectory;
     }
 }
